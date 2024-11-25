@@ -1,0 +1,32 @@
+@startuml
+title 味噌餡
+start
+while(while(1))
+    repeat
+    :Bluetooth接続確認;
+    repeatwhile(接続完了)
+    -> true;
+    if(distance < 15) then(YES)
+        :首を引っこめる;
+        while(三秒間)
+            :動きを止める;
+        endwhile
+        :首を伸ばす;
+        :60°旋回する;
+    else(NO)
+        switch(コマンド)
+            case('W')
+                :前に進む;
+            case('S')
+                :後ろに下がる;
+            case('A')
+                :左旋回;
+            case('D')
+                :右旋回;
+            case(else)
+                :動きを止める;
+        endswitch
+    endif
+endwhile
+end
+@enduml

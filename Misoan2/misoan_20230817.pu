@@ -1,0 +1,97 @@
+@startuml
+title 味噌餡
+
+group メイン処理
+start
+repeat
+' while (コマンドデータが'Q') is (no)
+    repeat
+    :Bluetooth\n接続確認;
+    repeat while (接続完了) is (false) not (true)
+    :Bluetooth経由で\nコマンド受信;
+    switch(コマンドデータ)
+        case('W')
+            :前に進む\n(足モータ動作処理);
+        case('S')
+            :後ろに下がる\n(足モータ動作処理);
+        case('A')
+            :左旋回\n(足モータ動作処理);
+        case('D')
+            :右旋回\n(足モータ動作処理);
+        case('E')
+            :動作停止\n(足モータ動作処理); 
+        case(else)
+            :動作継続\n(何もしない);
+    endswitch
+    :sleep(100ms);
+    if(障害物検知\n(distance < 15 \n && コマンドデータ != 'Q')) then (yes)
+        ' :状態=首を引っこめ状態;
+        :足を止める\n(足モータ動作処理);
+        :首を引っ込める\n(首モータ動作処理);
+        :sleep(3000ms);
+        :首を伸ばす\n(首モータ動作処理);
+        :60°旋回する(足モータ動作処理);
+    else (no)
+    endif
+
+    ' if(状態=首を引っこめ状態) then (yes)
+    '     :sleep(3000ms);
+    ' else (no)
+    ' endif
+
+    ' if(distance < 15) then (YES)
+    '     :首を引っこめる;
+    '     while(三秒間)
+    '         :動きを止める;
+    '     endwhile
+    '     :首を伸ばす;
+    '     :60°旋回する;
+    ' else(NO)
+    '     switch(コマンド)
+    '         case('W')
+    '             :前に進む;
+    '         case('S')
+    '             :後ろに下がる;
+    '         case('A')
+    '             :左旋回;
+    '         case('D')
+    '             :右旋回;
+    '         case(else)
+    '             :動きを止める;
+    '     endswitch
+    ' endif
+' endwhile (yes)
+repeat while (コマンドデータが'Q') is (no) not (yes)
+stop
+end group
+
+' group 首を引っ込める処理
+' start
+'     :首を引っこめる;
+'     while(三秒間)
+'         :動きを止める;
+'     endwhile
+'     :首を伸ばす;
+'     :60°旋回する;
+' stop
+' end group
+
+group 足モータ動作処理
+start
+    :足モータ操作\n(関数パラメータによる);
+stop
+end group
+
+group 首モータ動作処理
+start
+    :首モータ操作\n(関数パラメータによる);
+stop
+end group
+
+group 距離取得処理\n(周期ハンドラ)
+start
+    :距離取得(distance);
+stop
+end group
+
+@enduml
