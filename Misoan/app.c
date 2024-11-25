@@ -87,26 +87,18 @@ void main_task(intptr_t unused) {
 
         case 'f':
             ev3_lcd_draw_string("FFF",0,60);
-            ev3_motor_reset_counts(M_motor);
-            if(head = 0){
-                while (360>ev3_motor_get_counts(M_motor)) {
-                    ev3_motor_set_power(M_motor,20);
-                }
-                ev3_motor_stop(M_motor, true);
-                head = 1;
-            }else if(head = 1){
-               while (360>ev3_motor_get_counts(M_motor)) {
-                    ev3_motor_set_power(M_motor,-20);
-                }
-                ev3_motor_stop(M_motor, true);
-                head = 0;
-            }
+            ev3_motor_set_power(M_motor,20);
+            break;
+
+        case 'g':
+            ev3_lcd_draw_string("GGG",0,60);
+            ev3_motor_set_power(M_motor,-20);
             break;
 
         default:
             ev3_motor_stop(L_motor, false);
             ev3_motor_stop(R_motor, false);
-            ev3_motor_stop(M_motor, false);
+            ev3_motor_stop(M_motor, true);
         }
         tslp_tsk(100);
         // 障害物検知
