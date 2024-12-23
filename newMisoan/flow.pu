@@ -1,0 +1,37 @@
+@startuml
+title Misoan
+
+group メイン処理
+start
+    :初期設定;
+    while(1)
+        :Bluetooth\n接続確認;
+        while (接続完了？)is(no)
+            :sleep(100ms);
+        endwhile(yes)
+        :Bluetoot経由で\nコマンド受信;
+        switch(コマンド)
+            case('W')
+                :前進;
+            case('S')
+                :後退;
+            case('A')
+                :左旋回;
+            case('D')
+                :右旋回;
+            case('F')
+                :首動作;
+                if (首が伸びている)then(yes)
+                    :引っ込める;
+                else(no)
+                    :伸ばす;
+                endif
+            case(default)
+                :全停止;
+        endswitch
+        :sleep(100ms);
+    endwhile
+stop
+end group
+
+@enduml
