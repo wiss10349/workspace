@@ -1,0 +1,45 @@
+@startuml
+actor User as スティックマン
+participant maintask
+
+activate スティックマン
+スティックマン -> maintask: Start main_task()
+
+activate maintask
+maintask -> maintask: センサー初期化
+maintask -> maintask: モーター初期化
+maintask -> maintask: LED設定
+maintask -> maintask: Bluetooth接続オープン
+
+
+
+loop while(1)
+    alt Bluetooth not connected
+    maintask -> スティックマン: "Waiting for Bluetooth"
+    maintask -> maintask: Wait (tslp_tsk)
+    end
+
+    スティックマン -> maintask: Send command ('w', 's', 'a', 'd', 'f', etc.)
+    
+    alt Command 'w'
+        maintask -> maintask: 前進
+    else Command 's'
+        maintask -> maintask: 後退
+    else Command 'a'
+        maintask -> maintask: 左旋回
+    else Command 'd'
+        maintask -> maintask: 右旋回
+    else Command 'f'
+        maintask -> maintask: 首状態切替
+    else Unknown command
+        maintask -> maintask: 全モーター停止
+    end
+
+    maintask -> スティックマン: Respond with feedback (e.g, "Move forward.")
+    maintask -> maintask: Wait (tslp_tsk)
+end
+
+maintask -> maintask: Stop (ext_tsk)
+deactivate maintask
+deactivate スティックマン
+@enduml
