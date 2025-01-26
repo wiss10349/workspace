@@ -29,7 +29,9 @@
 #ifndef TOPPERS_MACRO_ONLY
 
 extern void	main_task(intptr_t exinf);
+extern void	receive_task(intptr_t exinf);
+extern void	execute_task(intptr_t exinf);
 //extern void idle_task(intptr_t exinf); // アイドル時タスク
-extern void dis_cychdr(intptr_t exinf); // 距離計測サイクリックハンドラ
+//extern void dis_cychdr(intptr_t exinf); // 距離計測サイクリックハンドラ
 
-#endif // TOPPERS_MACRO_ONLY
+#endif /* TOPPERS_MACRO_ONLY */
