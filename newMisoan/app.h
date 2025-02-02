@@ -23,15 +23,26 @@
 #define LOOP_REF		ULONG_C(1000000)	/* 速度計測用のループ回数 */
 #endif /* LOOP_REF */
 
+// センサーポート定義
+extern const sensor_port_t ultrasonic_sensor;
+
+// モーターポート定義
+extern const motor_port_t L_motor, R_motor, M_motor;
+
+//extern int distance;	// 距離用グローバル変数
+extern FILE *bt;		// Bluetoothファイルポインタの宣言
+extern char command;	// 受信したコマンド
+extern int head;		// 首の状態
+
 /*
  *  関数のプロトタイプ宣言
  */
 #ifndef TOPPERS_MACRO_ONLY
 
-extern void	main_task(intptr_t exinf);
-extern void	receive_task(intptr_t exinf);
-extern void	execute_task(intptr_t exinf);
-//extern void idle_task(intptr_t exinf); // アイドル時タスク
-//extern void dis_cychdr(intptr_t exinf); // 距離計測サイクリックハンドラ
+void	main_task(intptr_t exinf);
+void	receive_task(intptr_t exinf);
+void	execute_task(intptr_t exinf);
+//void idle_task(intptr_t exinf); // アイドル時タスク
+//void dis_cychdr(intptr_t exinf); // 距離計測サイクリックハンドラ
 
 #endif /* TOPPERS_MACRO_ONLY */
