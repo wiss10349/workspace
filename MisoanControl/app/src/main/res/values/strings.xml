@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MisoanControl</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="received">Received:</string>
+    <string name="forward">W</string>
+    <string name="left">A</string>
+    <string name="back">S</string>
+    <string name="right">D</string>
+</resources>
